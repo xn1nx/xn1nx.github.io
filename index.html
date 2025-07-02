@@ -3,174 +3,196 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Join GAG - Grow A Garden Community</title>
+  <title>Join GAG - Grow A Garden Candy Blossom</title>
   <style>
-    /* --- CSS Styles --- */
+    /* Background & typography */
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #d0f0c0, #7bb661);
-      color: #2e7d32;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fcefee, #ffd9e8, #ffcdf7);
       margin: 0;
       padding: 0;
       overflow-x: hidden;
+      color: #6b2e57;
+      user-select: none;
     }
 
     header {
-      background-color: #388e3c;
-      color: white;
+      background: #fae3f4;
+      padding: 50px 20px 60px;
       text-align: center;
-      padding: 40px 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(235, 182, 215, 0.6);
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
     header h1 {
-      font-size: 3em;
-      margin: 0 0 10px;
-      font-weight: 700;
-      text-shadow: 1px 1px 2px #234d20;
+      font-size: 3.8em;
+      margin: 0 0 15px;
+      font-weight: 900;
+      color: #b33e75;
+      text-shadow: 1px 2px 6px #ffb7d9;
+      letter-spacing: 1.5px;
     }
 
     header p {
-      font-size: 1.3em;
-      font-weight: 500;
-      text-shadow: 1px 1px 2px #234d20;
-    }
-
-    /* Discord button */
-    .discord-button {
-      display: inline-block;
-      background-color: #7289da;
-      color: white;
-      padding: 15px 30px;
-      font-size: 1.4em;
-      font-weight: bold;
-      border-radius: 12px;
-      text-decoration: none;
-      margin: 30px auto 50px;
-      box-shadow: 0 5px 15px rgba(114, 137, 218, 0.5);
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      display: block;
-      width: fit-content;
-    }
-    .discord-button:hover {
-      background-color: #5b6eae;
-      transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(114, 137, 218, 0.8);
+      font-size: 1.5em;
+      font-weight: 600;
+      color: #9e3770cc;
+      text-shadow: 0 1px 3px #f0b5d8;
+      margin: 0;
     }
 
     main {
-      max-width: 900px;
-      margin: 0 auto 100px;
+      max-width: 960px;
+      margin: -60px auto 120px;
       padding: 0 20px;
       text-align: center;
+      position: relative;
+      z-index: 5;
     }
 
     main h2 {
-      font-size: 2.4em;
+      font-size: 2.8em;
+      color: #ae3e81;
       margin-bottom: 10px;
-      color: #245214;
-      text-shadow: 1px 1px 2px #a5d6a7;
+      font-weight: 800;
+      text-shadow: 1px 1px 3px #f7c2e0;
     }
 
     main p {
-      font-size: 1.1em;
+      font-size: 1.2em;
+      margin-bottom: 35px;
       max-width: 600px;
-      margin: 0 auto 40px;
-      color: #2e7d32dd;
+      margin-left: auto;
+      margin-right: auto;
+      color: #924371cc;
     }
 
-    /* Game preview image placeholder */
+    .discord-button {
+      background: linear-gradient(45deg, #f47aaa, #e34794);
+      color: white;
+      font-weight: 700;
+      font-size: 1.5em;
+      padding: 18px 48px;
+      border-radius: 40px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 20px #f48fb1cc;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.4s ease;
+      user-select: none;
+    }
+
+    .discord-button:hover {
+      background: linear-gradient(45deg, #e34794, #f47aaa);
+      box-shadow: 0 12px 30px #f48fb1ff;
+      transform: scale(1.1);
+    }
+
     #game-preview img {
       width: 100%;
       max-width: 600px;
-      border-radius: 15px;
-      border: 5px solid #388e3c;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border-radius: 25px;
+      box-shadow: 0 12px 30px #f4b6dcaa;
+      margin-top: 40px;
       transition: transform 0.3s ease;
+      user-select: none;
     }
+
     #game-preview img:hover {
       transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 18px 45px #f48fb1ff;
     }
 
     footer {
-      background-color: #388e3c;
-      color: white;
       text-align: center;
-      padding: 15px;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-      font-weight: 600;
-      box-shadow: 0 -3px 8px rgba(0,0,0,0.3);
+      padding: 20px 10px;
+      font-weight: 700;
+      font-size: 1em;
+      color: #9c4376cc;
+      text-shadow: 0 0 3px #fcd9ec;
+      user-select: none;
     }
 
-    /* Animate leaves floating */
-
-    .leaf {
+    /* Candy Blossom seed floating animation */
+    .seed {
       position: fixed;
-      width: 40px;
-      height: 40px;
-      background: url('https://cdn-icons-png.flaticon.com/512/427/427735.png') no-repeat center/contain;
-      opacity: 0.7;
-      animation-name: floatLeaf;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://static.wikia.nocookie.net/growagarden/images/9/93/CandyBlossomSeed.png/revision/latest?cb=20250615132847');
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      animation-name: floatSeed;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
+      opacity: 0.8;
+      filter: drop-shadow(0 2px 3px #c760a6cc);
+      user-select: none;
+      z-index: 10;
     }
 
-    @keyframes floatLeaf {
+    @keyframes floatSeed {
       0% {
         transform: translateY(100vh) rotate(0deg);
-        opacity: 0.7;
+        opacity: 0.8;
       }
       50% {
         opacity: 1;
       }
       100% {
-        transform: translateY(-20vh) rotate(360deg);
+        transform: translateY(-15vh) rotate(360deg);
         opacity: 0;
       }
+    }
+
+    /* Candy Blossom tree - big center image */
+    #tree-container {
+      margin-top: -90px;
+      pointer-events: none;
+      user-select: none;
+      z-index: 4;
+      position: relative;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Welcome to GAG - Grow A Garden</h1>
-    <p>Your virtual garden awaits!</p>
+    <h1>Candy Blossom - Grow A Garden</h1>
+    <p>Join GAG and plant your sweetest garden!</p>
   </header>
 
   <main>
     <section id="discord-invite">
       <h2>Join Our Discord</h2>
-      <p>Connect with fellow gardeners and share your progress!</p>
+      <p>Connect with fellow gardeners and share your progress in a friendly community!</p>
       <a href="https://discord.gg/hubgag" target="_blank" rel="noopener" class="discord-button">Join Now</a>
     </section>
 
-    <section id="game-preview">
-      <h2>Game Preview</h2>
-      <p>Experience the joy of virtual gardening.</p>
-      <img src="https://i.imgur.com/W6cL7Nr.png" alt="Grow A Garden Gameplay" />
-    </section>
+    <div id="tree-container">
+      <img src="https://static.wikia.nocookie.net/growagarden/images/d/de/CandyBlossomTreePic.png/revision/latest/scale-to-width-down/1000?cb=20250429051423" alt="Candy Blossom Tree" />
+    </div>
   </main>
 
   <footer>
     <p>&copy; 2025 GAG Community</p>
   </footer>
 
-  <!-- Animated leaves script -->
+  <!-- Candy blossom seeds floating -->
   <script>
-    // Create floating leaf elements with random position and animation delay
-    const leafCount = 10;
-    for(let i = 0; i < leafCount; i++) {
-      const leaf = document.createElement('div');
-      leaf.classList.add('leaf');
-      leaf.style.left = Math.random() * 100 + 'vw';
-      leaf.style.animationDuration = (8 + Math.random() * 7) + 's';
-      leaf.style.animationDelay = (Math.random() * 15) + 's';
-      document.body.appendChild(leaf);
+    const seedCount = 15;
+    for (let i = 0; i < seedCount; i++) {
+      const seed = document.createElement('div');
+      seed.classList.add('seed');
+      seed.style.left = Math.random() * 100 + 'vw';
+      seed.style.animationDuration = (10 + Math.random() * 10) + 's';
+      seed.style.animationDelay = (Math.random() * 20) + 's';
+      document.body.appendChild(seed);
     }
   </script>
+
+  <!-- Candy Blossom external script -->
+  <script src="https://cdn.brandmetrics.com/scripts/bundle/65568.js?sid=ed1edc0e-ce73-462e-8cc4-fe0421bcd00f&toploc=growagarden.fandom.com" async></script>
 </body>
 </html>
