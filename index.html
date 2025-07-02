@@ -1,249 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GAG - Grow a Garden Community</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GAG - Grow A Garden Discord</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="CandyBlossomPic.png" type="image/png" />
+<!-- Candy Blossom favicon -->
+<link rel="icon" type="image/png" href="CandyBlossomPic.png" />
 
-  <style>
-    /* Candy blossom color gradient background */
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #fceef3 0%, #f8d7e0 50%, #f4b6c2 100%);
-      color: #6d3a4e;
-      overflow-x: hidden;
-      min-height: 100vh;
-      position: relative;
+<style>
+  /* Candy Blossom soft gradient background */
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffd4de 0%, #ffe8b3 50%, #fbd4fc 100%);
+    color: #4a2c52;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+  }
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    max-width: 600px;
+    line-height: 1.4;
+  }
+  main {
+    padding: 2rem 1rem 8rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+  }
+  /* Join button */
+  #join-button {
+    background: #ff74a1;
+    border: none;
+    border-radius: 28px;
+    color: white;
+    padding: 1rem 3rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    cursor: pointer;
+    box-shadow: 0 6px 10px rgba(255, 116, 161, 0.4);
+    margin: 2rem auto 0;
+    display: inline-block;
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  #join-button:hover {
+    background: #ff4f88;
+  }
+  /* Floating images container fixed full screen */
+  #floating-container {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .floating-seed, .floating-blossom {
+    position: absolute;
+    opacity: 0.7;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  /* Up-down gentle floating with fade animation */
+  @keyframes floatUpDownFade {
+    0%, 100% { transform: translateY(0); opacity: 0.7; }
+    50% { transform: translateY(-15px); opacity: 0.4; }
+  }
+  /* Different animation durations for randomness */
+  .floating-seed {
+    width: 40px;
+    animation-name: floatUpDownFade;
+  }
+  .floating-blossom {
+    width: 60px;
+    animation-name: floatUpDownFade;
+  }
+  /* Candy Blossom tree fixed bottom center */
+  #candy-tree {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    pointer-events: none;
+    z-index: 7;
+    user-select: none;
+  }
+
+  /* Responsive text and button scaling */
+  @media (max-width: 600px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.4rem; }
+    #join-button {
+      padding: 0.8rem 2.5rem;
+      font-size: 1rem;
     }
-
-    header {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
+    #candy-tree {
+      width: 140px;
     }
-
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.25rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #8e4a66;
-      text-shadow: 1px 1px 3px #fbd2d9;
-    }
-
-    header p {
-      font-size: 1.1rem;
-      margin-top: 0;
-      font-weight: 600;
-      color: #7b425b;
-      text-shadow: 1px 1px 2px #fceef3;
-    }
-
-    main {
-      max-width: 600px;
-      margin: 1rem auto 4rem;
-      padding: 0 1rem;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* Join button */
-    #join-btn {
-      display: inline-block;
-      margin: 2rem auto 3rem;
-      padding: 1rem 3rem;
-      background: #f48fb1;
-      border: none;
-      border-radius: 30px;
-      font-size: 1.4rem;
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(244, 143, 177, 0.6);
-      transition: background 0.3s ease;
-      user-select: none;
-    }
-    #join-btn:hover,
-    #join-btn:focus {
-      background: #ec407a;
-      outline: none;
-    }
-
-    /* Why You Should Join Us section */
-    #why-join {
-      background: rgba(255 255 255 / 0.6);
-      border-radius: 15px;
-      padding: 1.8rem 2rem;
-      box-shadow: 0 4px 10px rgba(142, 74, 102, 0.3);
-      margin-bottom: 3rem;
-    }
-    #why-join h2 {
-      margin-top: 0;
-      font-weight: 800;
-      font-size: 1.8rem;
-      color: #82314b;
-      margin-bottom: 1rem;
-      text-shadow: 1px 1px 2px #fceef3;
-    }
-    #why-join ul {
-      list-style-type: disc;
-      text-align: left;
-      padding-left: 1.2rem;
-      font-weight: 600;
-      color: #5a2d3e;
-      line-height: 1.5;
-    }
-
-    /* Candy blossom tree fixed at bottom center */
-    #tree {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      max-width: 250px;
-      width: 100%;
-      pointer-events: none;
-      user-select: none;
-      z-index: 5;
-      opacity: 0.9;
-    }
-
-    /* Floating seeds and blossoms container */
-    .floating-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    /* Common style for seeds and blossoms */
-    .floating {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      opacity: 0.7;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
-      user-select: none;
-      pointer-events: none;
-      filter: drop-shadow(0 0 2px rgba(143, 66, 91, 0.5));
-    }
-
-    /* Animation: gentle vertical fade up and down */
-    @keyframes floatUpDown {
-      0%   { transform: translateY(0); opacity: 0.7; }
-      50%  { transform: translateY(-15px); opacity: 0.3; }
-      100% { transform: translateY(0); opacity: 0.7; }
-    }
-
-    /* Specific seed/blossom animations with delay for natural effect */
-    /* We'll do 10 elements so delay them by increments */
-
-    /* Seeds */
-    #seed1 { top: 20%; left: 10%; animation: floatUpDown 6s ease-in-out infinite; }
-    #seed2 { top: 35%; left: 30%; animation: floatUpDown 5.5s ease-in-out infinite 1s; }
-    #seed3 { top: 50%; left: 50%; animation: floatUpDown 6.2s ease-in-out infinite 2s; }
-    #seed4 { top: 65%; left: 70%; animation: floatUpDown 5.8s ease-in-out infinite 3s; }
-    #seed5 { top: 80%; left: 85%; animation: floatUpDown 6.5s ease-in-out infinite 4s; }
-
-    /* Blossoms */
-    #blossom1 { top: 25%; left: 20%; animation: floatUpDown 7s ease-in-out infinite 0.5s; }
-    #blossom2 { top: 40%; left: 40%; animation: floatUpDown 6.7s ease-in-out infinite 1.5s; }
-    #blossom3 { top: 55%; left: 60%; animation: floatUpDown 7.3s ease-in-out infinite 2.5s; }
-    #blossom4 { top: 70%; left: 80%; animation: floatUpDown 6.9s ease-in-out infinite 3.5s; }
-    #blossom5 { top: 85%; left: 90%; animation: floatUpDown 7.1s ease-in-out infinite 4.5s; }
-
-    /* Responsive scaling for mobile */
-    @media (max-width: 480px) {
-      #join-btn {
-        width: 90%;
-        font-size: 1.3rem;
-        padding: 1rem 1rem;
-      }
-      .floating {
-        width: 35px;
-        height: 35px;
-      }
-      #tree {
-        max-width: 150px;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>GAG - Grow a Garden Community</h1>
-    <p>Join us for giveaways, rewards, and fun!</p>
-  </header>
 
-  <main>
-    <button id="join-btn" aria-label="Join our Discord Server">Join Our Discord</button>
+<main>
+  <h1>Welcome to GAG - Grow A Garden Discord</h1>
+  <p>Your community for giveaways, invite rewards, and all things Grow A Garden!</p>
+  <button id="join-button">Join Our Discord</button>
 
-    <section id="why-join" aria-labelledby="why-join-heading">
-      <h2 id="why-join-heading">Why You Should Join Us</h2>
-      <ul>
-        <li>Exclusive giveaways tailored to Grow a Garden players</li>
-        <li>Invite rewards that boost your progress</li>
-        <li>Friendly and active community</li>
-        <li>Daily events and challenges</li>
-      </ul>
-    </section>
-  </main>
+  <section id="why-join">
+    <h2>Why You Should Join Us</h2>
+    <p>We are a passionate community dedicated to Grow A Garden. Participate in giveaways, enjoy invite rewards, and connect with fellow gardeners in a fun, friendly environment.</p>
+  </section>
+</main>
 
-  <!-- Candy blossom tree fixed at bottom center -->
-  <img src="CandyBlossomTreePic.png" alt="Candy Blossom Tree" id="tree" />
+<!-- Floating seeds and blossoms container -->
+<div id="floating-container"></div>
 
-  <!-- Floating seeds and blossoms -->
-  <div class="floating-container" aria-hidden="true">
-    <!-- Seeds -->
-    <img src="CandyBlossomSeed.png" class="floating" id="seed1" alt="" />
-    <img src="CandyBlossomSeed.png" class="floating" id="seed2" alt="" />
-    <img src="CandyBlossomSeed.png" class="floating" id="seed3" alt="" />
-    <img src="CandyBlossomSeed.png" class="floating" id="seed4" alt="" />
-    <img src="CandyBlossomSeed.png" class="floating" id="seed5" alt="" />
-    <!-- Blossoms -->
-    <img src="CandyBlossomPic.png" class="floating" id="blossom1" alt="" />
-    <img src="CandyBlossomPic.png" class="floating" id="blossom2" alt="" />
-    <img src="CandyBlossomPic.png" class="floating" id="blossom3" alt="" />
-    <img src="CandyBlossomPic.png" class="floating" id="blossom4" alt="" />
-    <img src="CandyBlossomPic.png" class="floating" id="blossom5" alt="" />
-  </div>
+<!-- Candy Blossom Tree -->
+<img src="CandyBlossomTreePic.png" alt="Candy Blossom Tree" id="candy-tree" />
 
-  <!-- Audio elements for background music and click sound -->
-  <audio id="bg-music" src="grow a garden.mp3" loop></audio>
-  <audio id="click-sound" src="click.mp3" preload="auto"></audio>
+<!-- Audio elements -->
+<audio id="bg-music" src="grow a garden.mp3" loop muted autoplay></audio>
+<audio id="click-sound" src="click.mp3"></audio>
 
-  <script>
-    const joinBtn = document.getElementById('join-btn');
-    const bgMusic = document.getElementById('bg-music');
-    const clickSound = document.getElementById('click-sound');
-    const discordInvite = "https://discord.gg/hubgag";
+<script>
+  const discordLink = 'https://discord.gg/hubgag';
+  const joinBtn = document.getElementById('join-button');
+  const bgMusic = document.getElementById('bg-music');
+  const clickSound = document.getElementById('click-sound');
+  const floatingContainer = document.getElementById('floating-container');
 
-    // Play music once user interacts anywhere on page (required for autoplay policies)
-    function tryPlayMusic() {
-      bgMusic.play().catch(() => {});
-      window.removeEventListener('click', tryPlayMusic);
-      window.removeEventListener('keydown', tryPlayMusic);
-      window.removeEventListener('touchstart', tryPlayMusic);
+  // Start playing muted music immediately
+  bgMusic.play().catch(() => { /* autoplay blocked, will start after user interaction */ });
+
+  // On first user interaction, unmute bg music and play
+  function enableAudio() {
+    bgMusic.muted = false;
+    bgMusic.play();
+    window.removeEventListener('click', enableAudio);
+    window.removeEventListener('keydown', enableAudio);
+  }
+  window.addEventListener('click', enableAudio);
+  window.addEventListener('keydown', enableAudio);
+
+  // Join button click: play click sound and open discord invite
+  joinBtn.addEventListener('click', () => {
+    clickSound.currentTime = 0;
+    clickSound.play();
+    window.open(discordLink, '_blank');
+  });
+
+  // Candy blossom images sources
+  const seedSrc = 'CandyBlossomSeed.png';
+  const blossomSrc = 'CandyBlossomPic.png';
+
+  // Create 5 seeds and 5 blossoms scattered evenly with gentle float
+  function createFloatingImages() {
+    const totalSeeds = 5;
+    const totalBlossoms = 5;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Helper to get spaced positions avoiding overlap
+    function getPositions(count, minLeftPercent = 5, maxLeftPercent = 95) {
+      let positions = [];
+      let step = (maxLeftPercent - minLeftPercent) / (count - 1);
+      for (let i = 0; i < count; i++) {
+        positions.push(minLeftPercent + step * i + (Math.random() * step/2 - step/4));
+      }
+      return positions;
     }
-    window.addEventListener('click', tryPlayMusic);
-    window.addEventListener('keydown', tryPlayMusic);
-    window.addEventListener('touchstart', tryPlayMusic);
 
-    // Join button click
-    joinBtn.addEventListener('click', () => {
-      clickSound.currentTime = 0;
-      clickSound.play();
-      window.open(discordInvite, "_blank");
-    });
-  </script>
+    const seedPositions = getPositions(totalSeeds);
+    const blossomPositions = getPositions(totalBlossoms);
+
+    // Create seed elements
+    for(let i = 0; i < totalSeeds; i++) {
+      const img = document.createElement('img');
+      img.src = seedSrc;
+      img.className = 'floating-seed';
+      img.style.left = `${seedPositions[i]}vw`;
+      // random top between 10 and 80 vh
+      img.style.top = `${10 + Math.random() * 70}vh`;
+      img.style.animationDuration = `${6 + Math.random()*4}s`;
+      img.style.animationDelay = `${Math.random() * 6}s`;
+      floatingContainer.appendChild(img);
+    }
+
+    // Create blossom elements
+    for(let i = 0; i < totalBlossoms; i++) {
+      const img = document.createElement('img');
+      img.src = blossomSrc;
+      img.className = 'floating-blossom';
+      img.style.left = `${blossomPositions[i]}vw`;
+      img.style.top = `${15 + Math.random() * 60}vh`;
+      img.style.animationDuration = `${5 + Math.random()*5}s`;
+      img.style.animationDelay = `${Math.random() * 5}s`;
+      floatingContainer.appendChild(img);
+    }
+  }
+
+  createFloatingImages();
+</script>
+
 </body>
 </html>
