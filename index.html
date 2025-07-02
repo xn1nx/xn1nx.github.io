@@ -4,21 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GAG Community – Grow A Garden</title>
+  <!-- Candy Blossom Fruit as Favicon -->
+  <link rel="icon" type="image/png" href="https://static.wikia.nocookie.net/growagarden/images/5/52/CandyBlossomPic.png/revision/latest?cb=20250615132955" />
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom, #fbe7f0, #ffeef5);
       overflow-x: hidden;
-      position: relative;
       color: #4b2e3e;
+      position: relative;
     }
 
     .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 100px 20px 50px;
       position: relative;
       z-index: 2;
+      padding: 0 20px;
     }
 
     .hero h1 {
@@ -78,7 +85,7 @@
       transform: translateX(-50%);
       width: 300px;
       max-width: 80vw;
-      z-index: 1;
+      z-index: 0;
       pointer-events: none;
     }
 
@@ -101,12 +108,13 @@
   <div id="floating-container"></div>
 
   <div class="hero">
-    <h1>Welcome to GAG 🌸</h1>
-    <p>A Grow A Garden community offering giveaways, invite rewards, and more.</p>
-    <a class="button" href="https://discord.gg/hubgag" target="_blank">Join Our Discord</a>
+    <h1>Join Our Discord</h1>
+    <p>GAG – A Grow A Garden giveaway community with invite rewards & more!</p>
+    <a class="button" href="https://discord.gg/hubgag" target="_blank">Join Now</a>
   </div>
 
-  <img class="tree" src="https://static.wikia.nocookie.net/growagarden/images/d/de/CandyBlossomTreePic.png/revision/latest/scale-to-width-down/1000?cb=20250429051423" alt="Candy Blossom Tree">
+  <!-- Candy Blossom Tree (Fixed Background Center) -->
+  <img class="tree" src="https://images.weserv.nl/?url=static.wikia.nocookie.net/growagarden/images/d/de/CandyBlossomTreePic.png/revision/latest?cb=20250429051423" alt="Candy Blossom Tree" />
 
   <script>
     const seedUrl = 'https://images.weserv.nl/?url=static.wikia.nocookie.net/growagarden/images/9/93/CandyBlossomSeed.png/revision/latest?cb=20250615132847';
@@ -136,12 +144,12 @@
       createFloatingItem(seedUrl, 40, randomBetween(6, 10), randomBetween(0, 6));
     }
 
-    // Candy Blossoms (same as seeds, just varied size)
+    // Blossoms (same image, just bigger)
     for (let i = 0; i < 10; i++) {
       createFloatingItem(seedUrl, 60, randomBetween(8, 12), randomBetween(0, 6));
     }
 
-    // Candy Blossom Fruits
+    // Fruits
     for (let i = 0; i < 6; i++) {
       createFloatingItem(fruitUrl, 70, randomBetween(9, 14), randomBetween(0, 6));
     }
