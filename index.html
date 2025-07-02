@@ -11,7 +11,12 @@
   body {
     margin: 0; padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #ffd4de 0%, #ffe8b3 50%, #fbd4fc 100%);
+    background: linear-gradient(135deg, 
+      #fce9f2 0%,     /* light pink */
+      #fff2ce 40%,    /* soft yellow */
+      #f5d3fb 70%,    /* pastel purple */
+      #fce9f2 100%
+    );
     color: #4a2c52;
     overflow-x: hidden;
     min-height: 100vh;
@@ -26,12 +31,15 @@
   }
   h2 {
     font-size: 1.8rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-bottom: 1rem;
+    color: #d96fc2; /* candy blossom pink */
+    text-shadow: 0 0 8px #f9a1d1;
   }
   p {
     max-width: 600px;
     line-height: 1.4;
+    margin: 0 auto 1rem;
   }
   main {
     padding: 2rem 1rem 8rem;
@@ -56,6 +64,8 @@
     display: inline-block;
     transition: background 0.3s ease;
     user-select: none;
+    position: relative;
+    z-index: 20; /* bring above the tree */
   }
   #join-button:hover {
     background: #ff4f88;
@@ -85,19 +95,31 @@
   }
   #candy-tree {
     position: fixed;
-    bottom: 10px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     width: 180px;
     pointer-events: none;
-    z-index: 7;
+    z-index: 9; /* below join button but above floating seeds */
     user-select: none;
-    filter: drop-shadow(0 0 8px #ff99cc);
+    filter: drop-shadow(0 0 12px #ff99cc);
     animation: swayTree 6s ease-in-out infinite;
+    opacity: 0.85;
   }
   @keyframes swayTree {
     0%, 100% { transform: translateX(-50%) rotate(0deg); }
     50% { transform: translateX(-50%) rotate(3deg); }
+  }
+  #why-join {
+    background: #f9e4f1;
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    max-width: 600px;
+    margin: 3rem auto 0;
+    box-shadow: 0 8px 15px rgba(249, 164, 214, 0.4);
+    color: #6a2a62;
+    font-weight: 600;
+    text-align: center;
   }
   footer {
     text-align: center;
@@ -116,6 +138,10 @@
     #candy-tree {
       width: 140px;
     }
+    #why-join {
+      padding: 1.5rem 1rem;
+      margin: 2rem auto 0;
+    }
   }
 </style>
 </head>
@@ -128,7 +154,7 @@
 
   <section id="why-join">
     <h2>Why You Should Join Us</h2>
-    <p>We are a passionate community dedicated to Grow A Garden. Participate in giveaways, enjoy invite rewards, and connect with fellow gardeners in a fun, friendly environment.</p>
+    <p>Join a thriving community where Grow A Garden fans gather to share giveaways, exclusive invite rewards, and build friendships. Our server is the perfect place to connect, grow, and win!</p>
   </section>
 </main>
 
@@ -149,6 +175,7 @@
   const clickSound = document.getElementById('click-sound');
   const floatingContainer = document.getElementById('floating-container');
 
+  // Try to play music, enable on interaction due to browser policies
   bgMusic.play().catch(() => {});
 
   function enableAudio() {
@@ -178,7 +205,6 @@
       let positions = [];
       for (let i = 0; i < count; i++) {
         let left, top;
-        // Try to avoid center block horizontally and vertically
         do {
           left = Math.random() * 100; // vw %
           top = Math.random() * 100;  // vh %
