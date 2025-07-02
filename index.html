@@ -1,1 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GAG Discord Server - Join Now!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
+    /* Background & reset */
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      overflow: hidden;
+      background: #0f0f1a;
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffe7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Code rain container */
+    #codeRain {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      background: radial-gradient(ellipse at center, #0f0f1a 0%, #000000 80%);
+    }
+
+    /* Neon Title */
+    h1 {
+      font-size: 5rem;
+      margin: 0.2em 0 0.4em 0;
+      color: #00ffe7;
+      text-shadow:
+        0 0 10px #00ffe7,
+        0 0 20px #00ffe7,
+        0 0 40px #00ffe7,
+        0 0 80px #00fff7;
+      animation: flicker 3s infinite;
+      z-index: 1;
+      user-select: none;
+    }
+
+    /* Subtitle */
+    p {
+      font-size: 1.5rem;
+      margin: 0 0 2em 0;
+      color: #00e0c0aa;
+      user-select: none;
+    }
+
+    /* Join button */
+    a.join-button {
+      background: linear-gradient(45deg, #00ffe7, #00a5f7, #0041a5);
+      padding: 1.3em 4em;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #0f0f1a;
+      text-decoration: none;
+      border-radius: 50px;
+      box-shadow:
+        0 0 15px #00ffe7,
+        0 0 30px #00a5f7,
+        0 0 45px #0041a5;
+      position: relative;
+      z-index: 1;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    a.join-button:hover, a.join-button:focus {
+      box-shadow:
+        0 0 25px #00ffe7,
+        0 0 45px #00a5f7,
+        0 0 60px #0041a5,
+        0 0 80px #00fff7;
+      transform: scale(1.1);
+      outline: none;
+    }
+
+    /* Flicker animation for neon text */
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow:
+          0 0 10px #00ffe7,
+          0 0 20px #00ffe7,
+          0 0 40px #00ffe7,
+          0 0 80px #00fff7;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.8;
+        text-shadow: none;
+      }
+    }
+
+    /* Particle styles */
+    .particle {
+      position: fixed;
+      background: #00ffe7;
+      border-radius: 50%;
+      opacity: 0.8;
+      pointer-events: none;
+      animation-name: floatUp;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="codeRain"></div>
+
+  <h1>GAG</h1>
+  <p>Join our Discord community and have fun!</p>
+  <a href="https://discord.gg/hubgag" class="join-button" target="_blank" rel="noopener noreferrer">Join Discord</a>
+
+  <script>
+    // Code Rain effect like "Matrix"
+    const codeRain = document.getElementById('codeRain');
+    const columns = Math.floor(window.innerWidth / 20);
+    const drops = Array(columns).fill(1);
+
+    function drawCodeRain() {
+      const ctx = codeRain.getContext?.('2d');
+      if (!ctx) {
+        // If canvas not supported, create canvas element
+        if (!codeRain.querySelector('canvas')) {
+          const canvas = document.createElement('canvas');
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          codeRain.appendChild(canvas);
+          codeRain.ctx = canvas.getContext('2d');
+        }
+      }
+      const canvas = codeRain.querySelector('canvas');
+      const ctx2 = canvas.getContext('2d');
+
+      ctx2.fillStyle = 'rgba(15,15,26, 0.1)';
+      ctx2.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx2.fillStyle = '#00ffe7';
+      ctx2.font = '20px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+        ctx2.fillText(text, i * 20, drops[i] * 20);
+        if (drops[i] * 20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    function startCodeRain() {
+      if (!codeRain.querySelector('canvas')) {
+        const canvas = document.createElement('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        codeRain.appendChild(canvas);
+        codeRain.ctx = canvas.getContext('2d');
+      }
+      const canvas = codeRain.querySelector('canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      setInterval(drawCodeRain, 50);
+    }
+
+    startCodeRain();
+
+    // Floating particles effect
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      const size = Math.random() * 6 + 4;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${Math.random() * window.innerWidth}px`;
+      particle.style.animationDuration = `${5 + Math.random() * 5}s`;
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      document.body.appendChild(particle);
+
+      setTimeout(() => {
+        particle.remove();
+      }, 10000);
+    }
+
+    setInterval(createParticle, 400);
+  </script>
+
+</body>
+</html>
