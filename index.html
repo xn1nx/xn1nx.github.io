@@ -5,11 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GAG - Grow A Garden Discord</title>
 
-<!-- Candy Blossom favicon -->
 <link rel="icon" type="image/png" href="CandyBlossomPic.png" />
 
 <style>
-  /* Candy Blossom soft gradient background */
   body {
     margin: 0; padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,6 +16,9 @@
     overflow-x: hidden;
     min-height: 100vh;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   h1 {
     font-size: 3rem;
@@ -39,8 +40,8 @@
     text-align: center;
     position: relative;
     z-index: 10;
+    flex-grow: 1;
   }
-  /* Join button */
   #join-button {
     background: #ff74a1;
     border: none;
@@ -59,7 +60,6 @@
   #join-button:hover {
     background: #ff4f88;
   }
-  /* Floating images container fixed full screen */
   #floating-container {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -71,34 +71,41 @@
     opacity: 0.7;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
+    animation-name: floatUpDownFade;
   }
-  /* Up-down gentle floating with fade animation */
   @keyframes floatUpDownFade {
     0%, 100% { transform: translateY(0); opacity: 0.7; }
     50% { transform: translateY(-15px); opacity: 0.4; }
   }
-  /* Different animation durations for randomness */
   .floating-seed {
     width: 40px;
-    animation-name: floatUpDownFade;
   }
   .floating-blossom {
     width: 60px;
-    animation-name: floatUpDownFade;
   }
-  /* Candy Blossom tree fixed bottom center */
   #candy-tree {
     position: fixed;
-    bottom: 0;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     width: 180px;
     pointer-events: none;
     z-index: 7;
     user-select: none;
+    filter: drop-shadow(0 0 8px #ff99cc);
+    animation: swayTree 6s ease-in-out infinite;
   }
-
-  /* Responsive text and button scaling */
+  @keyframes swayTree {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    50% { transform: translateX(-50%) rotate(3deg); }
+  }
+  footer {
+    text-align: center;
+    padding: 1rem 1rem 2rem;
+    font-size: 0.9rem;
+    color: #6a4a7d;
+    user-select: none;
+  }
   @media (max-width: 600px) {
     h1 { font-size: 2.2rem; }
     h2 { font-size: 1.4rem; }
@@ -125,13 +132,13 @@
   </section>
 </main>
 
-<!-- Floating seeds and blossoms container -->
 <div id="floating-container"></div>
-
-<!-- Candy Blossom Tree -->
 <img src="CandyBlossomTreePic.png" alt="Candy Blossom Tree" id="candy-tree" />
 
-<!-- Audio elements -->
+<footer>
+  &copy; 2025 GAG Discord. Created by xn1nx.
+</footer>
+
 <audio id="bg-music" src="grow a garden.mp3" loop muted autoplay></audio>
 <audio id="click-sound" src="click.mp3"></audio>
 
@@ -142,10 +149,8 @@
   const clickSound = document.getElementById('click-sound');
   const floatingContainer = document.getElementById('floating-container');
 
-  // Start playing muted music immediately
-  bgMusic.play().catch(() => { /* autoplay blocked, will start after user interaction */ });
+  bgMusic.play().catch(() => {});
 
-  // On first user interaction, unmute bg music and play
   function enableAudio() {
     bgMusic.muted = false;
     bgMusic.play();
@@ -155,58 +160,57 @@
   window.addEventListener('click', enableAudio);
   window.addEventListener('keydown', enableAudio);
 
-  // Join button click: play click sound and open discord invite
   joinBtn.addEventListener('click', () => {
     clickSound.currentTime = 0;
     clickSound.play();
     window.open(discordLink, '_blank');
   });
 
-  // Candy blossom images sources
   const seedSrc = 'CandyBlossomSeed.png';
   const blossomSrc = 'CandyBlossomPic.png';
 
-  // Create 5 seeds and 5 blossoms scattered evenly with gentle float
   function createFloatingImages() {
     const totalSeeds = 5;
     const totalBlossoms = 5;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
 
-    // Helper to get spaced positions avoiding overlap
-    function getPositions(count, minLeftPercent = 5, maxLeftPercent = 95) {
+    // Scatter evenly but avoid center content area (center ~40vw to 60vw horizontally, top ~20vh to 80vh vertically)
+    function generatePositions(count) {
       let positions = [];
-      let step = (maxLeftPercent - minLeftPercent) / (count - 1);
       for (let i = 0; i < count; i++) {
-        positions.push(minLeftPercent + step * i + (Math.random() * step/2 - step/4));
+        let left, top;
+        // Try to avoid center block horizontally and vertically
+        do {
+          left = Math.random() * 100; // vw %
+          top = Math.random() * 100;  // vh %
+        } while (
+          left > 40 && left < 60 && top > 20 && top < 80
+        );
+        positions.push({ left, top });
       }
       return positions;
     }
 
-    const seedPositions = getPositions(totalSeeds);
-    const blossomPositions = getPositions(totalBlossoms);
+    const seedPositions = generatePositions(totalSeeds);
+    const blossomPositions = generatePositions(totalBlossoms);
 
-    // Create seed elements
     for(let i = 0; i < totalSeeds; i++) {
       const img = document.createElement('img');
       img.src = seedSrc;
       img.className = 'floating-seed';
-      img.style.left = `${seedPositions[i]}vw`;
-      // random top between 10 and 80 vh
-      img.style.top = `${10 + Math.random() * 70}vh`;
-      img.style.animationDuration = `${6 + Math.random()*4}s`;
+      img.style.left = `${seedPositions[i].left}vw`;
+      img.style.top = `${seedPositions[i].top}vh`;
+      img.style.animationDuration = `${6 + Math.random() * 4}s`;
       img.style.animationDelay = `${Math.random() * 6}s`;
       floatingContainer.appendChild(img);
     }
 
-    // Create blossom elements
     for(let i = 0; i < totalBlossoms; i++) {
       const img = document.createElement('img');
       img.src = blossomSrc;
       img.className = 'floating-blossom';
-      img.style.left = `${blossomPositions[i]}vw`;
-      img.style.top = `${15 + Math.random() * 60}vh`;
-      img.style.animationDuration = `${5 + Math.random()*5}s`;
+      img.style.left = `${blossomPositions[i].left}vw`;
+      img.style.top = `${blossomPositions[i].top}vh`;
+      img.style.animationDuration = `${5 + Math.random() * 5}s`;
       img.style.animationDelay = `${Math.random() * 5}s`;
       floatingContainer.appendChild(img);
     }
