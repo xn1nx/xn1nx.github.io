@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GAG Candy Blossom Garden</title>
 <style>
+  /* Base & layout */
   body {
     margin: 0;
-    background: linear-gradient(135deg, #fcefee, #ffd9e8, #ffcdf7);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #fcefee, #ffd9e8, #ffcdf7);
     color: #6b2e57;
     overflow-x: hidden;
-    user-select: none;
   }
 
   header {
@@ -43,7 +43,7 @@
     margin: 0 auto 100px;
     padding: 0 20px;
     position: relative;
-    z-index: 15;
+    z-index: 20; /* make sure content is above floating seeds/blossoms */
     text-align: center;
   }
 
@@ -91,9 +91,11 @@
     color: #9c4376cc;
     text-shadow: 0 0 3px #fcd9ec;
     user-select: none;
+    position: relative;
+    z-index: 20;
   }
 
-  /* Candy Blossom Tree */
+  /* Fixed tree at bottom center */
   #tree-container {
     position: fixed;
     bottom: 0;
@@ -102,37 +104,46 @@
     max-width: 600px;
     width: 100%;
     pointer-events: none;
-    z-index: 5;
     user-select: none;
+    z-index: 5;
   }
 
   #tree-container img {
     width: 100%;
     height: auto;
+    display: block;
   }
 
-  /* Seed & Blossom styles */
-  .floating-item {
+  /* Floating seeds & blossoms container */
+  #floating-container {
     position: fixed;
-    width: 48px;
-    height: 48px;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* So clicks pass through */
+    overflow: visible;
+    z-index: 10;
+  }
+
+  /* Seed & blossom common styles */
+  .floating-item {
+    position: absolute;
     background-size: contain;
     background-repeat: no-repeat;
-    pointer-events: none;
+    will-change: transform, opacity;
+    opacity: 0.8;
     user-select: none;
-    animation-name: bobFade;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
   }
 
-  /* Bobbing and fading animation */
+  /* Animation for gentle up/down bob and fade */
   @keyframes bobFade {
     0%, 100% {
       transform: translateY(0);
-      opacity: 0.8;
+      opacity: 0.7;
     }
     50% {
-      transform: translateY(-15px);
+      transform: translateY(-12px);
       opacity: 1;
     }
   }
@@ -142,7 +153,7 @@
 
 <header>
   <h1>Candy Blossom - Grow A Garden</h1>
-  <p>Join GAG and plant your sweetest garden!</p>
+  <p>Join GAG, the community for giveaways and invite rewards!</p>
 </header>
 
 <main>
@@ -153,48 +164,66 @@
   </section>
 </main>
 
+<div id="floating-container"></div>
+
 <div id="tree-container">
   <img src="https://images.weserv.nl/?url=static.wikia.nocookie.net/growagarden/images/d/de/CandyBlossomTreePic.png/revision/latest/scale-to-width-down/1000?cb=20250429051423" alt="Candy Blossom Tree" />
 </div>
 
+<footer>
+  <p>&copy; 2025 GAG Community</p>
+</footer>
+
 <script>
-  // Create seeds and blossoms gently bobbing and fading
+  // Candy Blossom Seed and Blossom URLs
   const seedUrl = 'https://images.weserv.nl/?url=static.wikia.nocookie.net/growagarden/images/9/93/CandyBlossomSeed.png/revision/latest?cb=20250615132847';
-  const blossomUrl = 'https://images.weserv.nl/?url=static.wikia.nocookie.net/growagarden/images/9/93/CandyBlossomSeed.png/revision/latest?cb=20250615132847'; // Replace with candy blossom image if you want, but no direct one provided.
+  // Using the same seed image for blossoms as per your instructions
 
-  // You said "Candy Blossoms too" but only gave seed/tree images — I used seed for both for now, can swap if you provide blossom image
+  const container = document.getElementById('floating-container');
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
 
-  function createFloatingItem(imageUrl, size, zIndex) {
-    const item = document.createElement('div');
-    item.classList.add('floating-item');
-    item.style.backgroundImage = `url('${imageUrl}')`;
-    item.style.width = size + 'px';
-    item.style.height = size + 'px';
-    item.style.left = Math.random() * 100 + 'vw';
-    item.style.top = Math.random() * 80 + 10 + 'vh';
-    item.style.animationDuration = (6 + Math.random() * 6) + 's';
-    item.style.animationDelay = (Math.random() * 6) + 's';
-    item.style.zIndex = zIndex;
-    document.body.appendChild(item);
+  // Helper: generate a random number between min and max
+  function randomBetween(min, max) {
+    return Math.random() * (max - min) + min;
   }
 
-  // Add 12 seeds, zIndex 20 (front)
-  for (let i = 0; i < 12; i++) {
-    createFloatingItem(seedUrl, 48, 20);
+  // Create one floating item (seed or blossom)
+  function createFloatingItem(imageUrl, sizePx, animationDuration, animationDelay) {
+    const div = document.createElement('div');
+    div.classList.add('floating-item');
+    div.style.backgroundImage = `url(${imageUrl})`;
+    div.style.width = sizePx + 'px';
+    div.style.height = sizePx + 'px';
+
+    // Random horizontal position (vw)
+    const left = randomBetween(5, 95);
+    div.style.left = left + 'vw';
+
+    // Random vertical position (vh), leave top/bottom margin
+    const top = randomBetween(15, 80);
+    div.style.top = top + 'vh';
+
+    // Animation properties
+    div.style.animation = `bobFade ${animationDuration}s ease-in-out infinite`;
+    div.style.animationDelay = animationDelay + 's';
+
+    container.appendChild(div);
   }
 
-  // Add 8 blossoms, zIndex 18 (behind seeds)
+  // Create seeds - smaller size, faster bob
+  for (let i = 0; i < 10; i++) {
+    createFloatingItem(seedUrl, 40, randomBetween(5, 8), randomBetween(0, 5));
+  }
+
+  // Create blossoms - bigger size, slower bob, slightly behind seeds by z-index
   for (let i = 0; i < 8; i++) {
-    createFloatingItem(seedUrl, 60, 18); // Used seed image for blossom, swap if you want
+    createFloatingItem(seedUrl, 60, randomBetween(7, 12), randomBetween(0, 5));
   }
 </script>
 
 <!-- Candy Blossom external script -->
 <script src="https://cdn.brandmetrics.com/scripts/bundle/65568.js?sid=ed1edc0e-ce73-462e-8cc4-fe0421bcd00f&toploc=growagarden.fandom.com" async></script>
-
-<footer>
-  <p>&copy; 2025 GAG Community</p>
-</footer>
 
 </body>
 </html>
