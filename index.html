@@ -3,89 +3,106 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>GAG Discord - Grow A Garden Community</title>
+<title>GAG Discord Community</title>
 <link rel="icon" href="CandyBlossomPic.png" />
 <style>
-  body {
-    margin: 0; padding: 0;
-    background: linear-gradient(135deg,
-      #FCE4EC 0%,
-      #F8BBD0 30%,
-      #F48FB1 55%,
-      #CE93D8 75%,
-      #FFF3E0 100%
-    );
+  /* --- Reset and basics --- */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body, html {
+    height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #4a2c52;
+    background: linear-gradient(135deg, #f7d5f0, #fbd9e9, #ffd1f7);
     overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
+    cursor: none; /* Hide default cursor */
+  }
+  
+  /* --- Background radial glows for depth --- */
+  body::before, body::after {
+    content: "";
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.25;
+    z-index: 0;
+  }
+  body::before {
+    width: 350px; height: 350px;
+    background: #f8b4da;
+    top: 15vh; left: 20vw;
+  }
+  body::after {
+    width: 300px; height: 300px;
+    background: #fbe2f8;
+    bottom: 20vh; right: 15vw;
   }
 
-  /* Splash overlay */
+  /* --- Splash Screen --- */
   #splash {
     position: fixed;
-    top:0; left:0; right:0; bottom:0;
-    background: #FCE4EC;
+    inset: 0;
+    background: linear-gradient(135deg, #f7d5f0, #fbd9e9, #ffd1f7);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    z-index: 9999;
+    user-select: none;
     cursor: pointer;
-    transition: opacity 0.8s ease;
-  }
-  #splash.hidden {
-    opacity: 0;
-    pointer-events: none;
+    z-index: 1000;
   }
   #splash img {
-    width: 120px;
-    margin-bottom: 25px;
-    user-select: none;
-    animation: pulseGlow 2.5s ease-in-out infinite;
+    width: 110px;
+    filter: drop-shadow(0 0 10px #fdb1e4);
+    animation: pulse 3s ease-in-out infinite;
   }
   #splash span {
-    font-size: 1.5rem;
+    margin-top: 25px;
+    font-size: 2.4rem;
     font-weight: 700;
-    color: #682b67;
-    letter-spacing: 1.4px;
-    animation: shake 1.2s infinite;
-    user-select: none;
+    color: #91298f;
+    text-shadow:
+      0 0 8px #fdb1e4,
+      0 0 18px #fdb1e4;
+    animation: shake 1.2s ease-in-out infinite;
   }
 
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px #fdb1e4); }
+    50% { transform: scale(1.1); filter: drop-shadow(0 0 20px #fdb1e4); }
+  }
   @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-5px) rotate(-3deg); }
-    40%, 80% { transform: translateX(5px) rotate(3deg); }
-  }
-  @keyframes pulseGlow {
-    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px #F48FB1); }
-    50% { transform: scale(1.05); filter: drop-shadow(0 0 15px #CE93D8); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
   }
 
-  /* Floating images base */
+  /* --- Floating candy blossoms and seeds --- */
   .floating-img {
     position: fixed;
+    width: 45px;
     opacity: 0.75;
+    filter: drop-shadow(0 0 6px #f0a7e1);
+    animation: floatFade 7s ease-in-out infinite;
+    will-change: transform, opacity;
     pointer-events: none;
     user-select: none;
-    width: 55px;
-    height: auto;
-    animation: floatFade 6s ease-in-out infinite;
   }
+  /* Different sizes for variety */
+  .seed { width: 30px; filter: drop-shadow(0 0 4px #d69cbb); }
 
+  /* Float and fade up/down */
   @keyframes floatFade {
-    0%, 100% { transform: translateY(0); opacity: 0.75; }
-    50% { transform: translateY(-15px); opacity: 0.4; }
+    0%, 100% { transform: translateY(0); opacity: 0.8; }
+    50% { transform: translateY(-18px); opacity: 0.35; }
   }
 
-  /* Positions for 10 candy blossoms scattered evenly */
-  .candy-blossom:nth-child(1)  { top: 10vh; left: 10vw; animation-delay: 0s; }
-  .candy-blossom:nth-child(2)  { top: 20vh; left: 30vw; animation-delay: 0.7s; }
+  /* Positions for candy blossoms (10), spaced nicely */
+  .candy-blossom:nth-child(1)  { top: 10vh; left: 8vw; animation-delay: 0s; }
+  .candy-blossom:nth-child(2)  { top: 20vh; left: 28vw; animation-delay: 0.7s; }
   .candy-blossom:nth-child(3)  { top: 35vh; left: 15vw; animation-delay: 1.3s; }
   .candy-blossom:nth-child(4)  { top: 50vh; left: 40vw; animation-delay: 2s; }
   .candy-blossom:nth-child(5)  { top: 65vh; left: 25vw; animation-delay: 2.7s; }
@@ -95,204 +112,235 @@
   .candy-blossom:nth-child(9)  { top: 20vh; left: 70vw; animation-delay: 5.3s; }
   .candy-blossom:nth-child(10) { top: 10vh; left: 85vw; animation-delay: 6s; }
 
-  /* Positions for 10 seeds scattered evenly */
-  .seed:nth-child(11) { top: 15vh; left: 20vw; animation-delay: 1s; }
-  .seed:nth-child(12) { top: 30vh; left: 35vw; animation-delay: 1.7s; }
-  .seed:nth-child(13) { top: 45vh; left: 20vw; animation-delay: 2.4s; }
-  .seed:nth-child(14) { top: 60vh; left: 45vw; animation-delay: 3.1s; }
-  .seed:nth-child(15) { top: 70vh; left: 30vw; animation-delay: 3.8s; }
-  .seed:nth-child(16) { top: 80vh; left: 55vw; animation-delay: 4.5s; }
-  .seed:nth-child(17) { top: 65vh; left: 70vw; animation-delay: 5.2s; }
-  .seed:nth-child(18) { top: 50vh; left: 85vw; animation-delay: 5.9s; }
-  .seed:nth-child(19) { top: 35vh; left: 75vw; animation-delay: 6.6s; }
-  .seed:nth-child(20) { top: 20vh; left: 90vw; animation-delay: 7.3s; }
+  /* Positions for seeds (10), spaced nicely and away from blossoms */
+  .seed:nth-child(11) { top: 18vh; left: 18vw; animation-delay: 1s; }
+  .seed:nth-child(12) { top: 32vh; left: 38vw; animation-delay: 1.7s; }
+  .seed:nth-child(13) { top: 47vh; left: 23vw; animation-delay: 2.4s; }
+  .seed:nth-child(14) { top: 62vh; left: 48vw; animation-delay: 3.1s; }
+  .seed:nth-child(15) { top: 72vh; left: 33vw; animation-delay: 3.8s; }
+  .seed:nth-child(16) { top: 82vh; left: 58vw; animation-delay: 4.5s; }
+  .seed:nth-child(17) { top: 67vh; left: 73vw; animation-delay: 5.2s; }
+  .seed:nth-child(18) { top: 52vh; left: 88vw; animation-delay: 5.9s; }
+  .seed:nth-child(19) { top: 37vh; left: 78vw; animation-delay: 6.6s; }
+  .seed:nth-child(20) { top: 22vh; left: 93vw; animation-delay: 7.3s; }
 
-  /* Candy Blossom Tree fixed at bottom center behind footer with gentle sway */
+  /* --- Candy Blossom Tree with glow --- */
   .tree {
     position: fixed;
-    bottom: 40px; /* leave space above footer */
+    bottom: 15px;
     left: 50%;
-    transform-origin: bottom center;
     transform: translateX(-50%);
-    width: 300px;
-    max-width: 90vw;
-    animation: sway 6s ease-in-out infinite;
-    pointer-events: none;
+    width: 320px;
+    filter:
+      drop-shadow(0 0 20px #f9c0ff)
+      drop-shadow(0 0 30px #f29ef4);
+    animation: sway 5s ease-in-out infinite;
+    z-index: 20;
     user-select: none;
-    z-index: 0; /* behind footer */
-  }
-  @keyframes sway {
-    0%, 100% { transform: translateX(-50%) rotate(0deg); }
-    50% { transform: translateX(-50%) rotate(3deg); }
   }
 
-  /* Centered Join Button and main container */
+  @keyframes sway {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    50% { transform: translateX(-50%) rotate(4deg); }
+  }
+
+  /* --- Main Content --- */
   .main-content {
-    position: relative;
-    z-index: 10;
+    max-width: 700px;
+    margin: 90px auto 60px;
+    padding: 0 20px;
+    color: #5a2b5e;
     text-align: center;
-    padding: 80px 20px 140px; /* bottom padding for tree */
+    z-index: 10;
+    position: relative;
   }
   .main-content h1 {
     font-size: 3rem;
     margin-bottom: 10px;
+    text-shadow: 0 0 6px #e7a7db;
   }
   .main-content p {
     font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto 30px;
-    color: #682b67;
-  }
-  .join-button button {
-    background: #F48FB1;
-    border: none;
-    padding: 16px 36px;
-    font-size: 1.5rem;
-    border-radius: 40px;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 6px 15px rgba(244, 143, 177, 0.5);
-    transition: background 0.3s ease;
-  }
-  .join-button button:hover {
-    background: #CE93D8;
+    margin-bottom: 30px;
+    font-weight: 600;
   }
 
-  /* "Why you should join" section */
+  /* --- Join button with shadow --- */
+  .join-button button {
+    font-size: 1.6rem;
+    padding: 16px 40px;
+    border-radius: 30px;
+    border: none;
+    background: #e78ddd;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow:
+      0 8px 18px rgba(231, 141, 221, 0.6),
+      0 0 20px #e78ddd;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+  }
+  .join-button button:hover, .join-button button:focus {
+    background: #ce93d8;
+    box-shadow:
+      0 12px 24px rgba(206, 147, 216, 0.8),
+      0 0 28px #ce93d8;
+    outline: none;
+  }
+
+  /* --- Why Join section with shadow --- */
   .why-join {
-    background: rgba(255 255 255 / 0.3);
-    margin: 40px auto;
-    max-width: 700px;
-    padding: 20px 30px;
+    background: rgba(255 255 255 / 0.85);
     border-radius: 20px;
-    box-shadow: 0 0 15px rgba(204, 143, 177, 0.3);
+    padding: 28px 36px;
+    box-shadow:
+      0 12px 26px rgba(204, 153, 204, 0.35),
+      0 0 40px rgba(215, 156, 215, 0.3);
+    max-width: 600px;
+    margin: 40px auto 20px;
+    font-weight: 600;
+    color: #7a3f7a;
+    text-align: left;
   }
   .why-join h2 {
-    color: #682b67;
-    font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    font-size: 2rem;
+    color: #91298f;
+    text-shadow: 0 0 6px #fdb1e4;
   }
   .why-join ul {
-    text-align: left;
-    color: #532151;
-    font-size: 1.1rem;
+    list-style-type: disc;
+    padding-left: 20px;
   }
-  .why-join ul li {
+  .why-join li {
     margin-bottom: 10px;
   }
 
-  /* Footer */
+  /* --- Footer copyright --- */
   footer {
+    color: #8b488b;
     text-align: center;
-    padding: 15px 0;
+    margin: 50px 10px 20px;
     font-size: 0.9rem;
-    color: #4a2c52aa;
-    position: relative;
-    z-index: 5; /* above tree */
+    user-select: none;
   }
 
-  /* Responsive */
-  @media (max-width: 600px) {
-    .main-content h1 {
-      font-size: 2.2rem;
-    }
-    .join-button button {
-      font-size: 1.2rem;
-      padding: 12px 28px;
-    }
-    .tree {
-      width: 200px;
-      bottom: 50px;
-    }
+  /* --- Custom cursor follower --- */
+  #cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 45px;
+    height: 45px;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #fcb8ea 40%, #8e277a 90%);
+    box-shadow:
+      0 0 12px #fdb1e4,
+      0 0 24px #f76ce0;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+    mix-blend-mode: screen;
+    z-index: 1500;
   }
+
 </style>
 </head>
 <body>
 
 <!-- Splash Screen -->
-<div id="splash" aria-label="Click to enter the website">
-  <img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" draggable="false" />
+<div id="splash" aria-label="Click to enter the site" role="button" tabindex="0">
+  <img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" />
   <span>Click to Enter</span>
-  <audio id="click-sound" src="click.mp3" preload="auto"></audio>
 </div>
 
 <!-- Floating candy blossoms -->
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
-<img src="CandyBlossomPic.png" alt="Candy Blossom Fruit" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
+<img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
 
 <!-- Floating seeds -->
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
-<img src="CandyBlossomSeed.png" alt="Candy Blossom Seed" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
+<img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
 
 <!-- Candy Blossom Tree -->
 <img src="CandyBlossomTreePic.png" alt="Candy Blossom Tree" class="tree" />
 
-<div class="main-content" style="visibility:hidden;">
-  <h1>GAG Discord Community</h1>
-  <p>Grow A Garden giveaways, invite rewards, and a friendly community!</p>
+<!-- Main Content -->
+<div class="main-content" role="main" aria-label="Main content">
+  <h1>Grow A Garden Giveaways</h1>
+  <p>Join our community server for giveaways, invite rewards, and more!</p>
   <div class="join-button">
-    <button id="join-btn" aria-label="Join our Discord server">Join Our Discord</button>
+    <button id="join-discord" aria-label="Join our Discord Server">Join Our Discord</button>
   </div>
+</div>
 
-  <section class="why-join" aria-label="Why you should join our server">
-    <h2>Why You Should Join Our Server</h2>
-    <ul>
-      <li>Exclusive Grow A Garden giveaways</li>
-      <li>Invite rewards to boost your rank</li>
-      <li>Friendly and active community</li>
-      <li>Help and tips for Grow A Garden gameplay</li>
-      <li>Regular events and updates</li>
-    </ul>
-  </section>
+<div class="why-join" aria-label="Why You Should Join Our Server">
+  <h2>Why You Should Join Our Server</h2>
+  <ul>
+    <li>Exclusive giveaways for Grow A Garden players</li>
+    <li>Earn invite rewards and bonuses</li>
+    <li>Active and friendly community</li>
+    <li>Get tips and support for the game</li>
+  </ul>
 </div>
 
 <footer>
   &copy; 2025 xn1nx created this
 </footer>
 
+<!-- Cursor Follower -->
+<div id="cursor-follower"></div>
+
+<!-- Background music and click sound -->
 <audio id="bg-music" src="grow a garden.mp3" loop preload="auto"></audio>
+<audio id="click-sound" src="click.mp3" preload="auto"></audio>
 
 <script>
   const splash = document.getElementById('splash');
-  const clickSound = document.getElementById('click-sound');
   const bgMusic = document.getElementById('bg-music');
-  const mainContent = document.querySelector('.main-content');
-  const joinBtn = document.getElementById('join-btn');
+  const clickSound = document.getElementById('click-sound');
+  const joinButton = document.getElementById('join-discord');
+  const cursorFollower = document.getElementById('cursor-follower');
 
+  // Splash click to enter
   splash.addEventListener('click', () => {
     clickSound.currentTime = 0;
     clickSound.play();
-    splash.classList.add('hidden');
-    setTimeout(() => {
-      splash.style.display = 'none';
-      mainContent.style.visibility = 'visible';
-      bgMusic.play().catch(e => {
-        console.log('Autoplay prevented:', e);
-      });
-    }, 800);
+    splash.style.display = 'none';
+    bgMusic.play().catch(() => {
+      // Autoplay might be blocked, no worries
+    });
   });
 
-  joinBtn.addEventListener('click', () => {
+  // Join Discord button click plays click sound and opens invite
+  joinButton.addEventListener('click', () => {
     clickSound.currentTime = 0;
     clickSound.play();
     window.open('https://discord.gg/hubgag', '_blank');
   });
+
+  // Cursor follower movement
+  window.addEventListener('mousemove', e => {
+    cursorFollower.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+  });
+
 </script>
 
 </body>
