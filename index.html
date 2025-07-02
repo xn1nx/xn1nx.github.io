@@ -1,210 +1,176 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GAG Discord Server - Join Now!</title>
+  <title>Join GAG - Grow A Garden Community</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+    /* --- CSS Styles --- */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #d0f0c0, #7bb661);
+      color: #2e7d32;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
 
-    /* Background & reset */
-    body, html {
-      margin: 0; padding: 0; height: 100%;
-      overflow: hidden;
-      background: #0f0f1a;
-      font-family: 'Orbitron', sans-serif;
-      color: #00ffe7;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+    header {
+      background-color: #388e3c;
+      color: white;
       text-align: center;
+      padding: 40px 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       position: relative;
-    }
-
-    /* Code rain container */
-    #codeRain {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
       overflow: hidden;
-      background: radial-gradient(ellipse at center, #0f0f1a 0%, #000000 80%);
     }
 
-    /* Neon Title */
-    h1 {
-      font-size: 5rem;
-      margin: 0.2em 0 0.4em 0;
-      color: #00ffe7;
-      text-shadow:
-        0 0 10px #00ffe7,
-        0 0 20px #00ffe7,
-        0 0 40px #00ffe7,
-        0 0 80px #00fff7;
-      animation: flicker 3s infinite;
-      z-index: 1;
-      user-select: none;
+    header h1 {
+      font-size: 3em;
+      margin: 0 0 10px;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px #234d20;
     }
 
-    /* Subtitle */
-    p {
-      font-size: 1.5rem;
-      margin: 0 0 2em 0;
-      color: #00e0c0aa;
-      user-select: none;
+    header p {
+      font-size: 1.3em;
+      font-weight: 500;
+      text-shadow: 1px 1px 2px #234d20;
     }
 
-    /* Join button */
-    a.join-button {
-      background: linear-gradient(45deg, #00ffe7, #00a5f7, #0041a5);
-      padding: 1.3em 4em;
-      font-size: 2rem;
-      font-weight: 900;
-      color: #0f0f1a;
+    /* Discord button */
+    .discord-button {
+      display: inline-block;
+      background-color: #7289da;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.4em;
+      font-weight: bold;
+      border-radius: 12px;
       text-decoration: none;
-      border-radius: 50px;
-      box-shadow:
-        0 0 15px #00ffe7,
-        0 0 30px #00a5f7,
-        0 0 45px #0041a5;
-      position: relative;
-      z-index: 1;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-      user-select: none;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      margin: 30px auto 50px;
+      box-shadow: 0 5px 15px rgba(114, 137, 218, 0.5);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: block;
+      width: fit-content;
     }
-    a.join-button:hover, a.join-button:focus {
-      box-shadow:
-        0 0 25px #00ffe7,
-        0 0 45px #00a5f7,
-        0 0 60px #0041a5,
-        0 0 80px #00fff7;
-      transform: scale(1.1);
-      outline: none;
+    .discord-button:hover {
+      background-color: #5b6eae;
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(114, 137, 218, 0.8);
     }
 
-    /* Flicker animation for neon text */
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-        text-shadow:
-          0 0 10px #00ffe7,
-          0 0 20px #00ffe7,
-          0 0 40px #00ffe7,
-          0 0 80px #00fff7;
-      }
-      20%, 22%, 24%, 55% {
-        opacity: 0.8;
-        text-shadow: none;
-      }
+    main {
+      max-width: 900px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+      text-align: center;
     }
 
-    /* Particle styles */
-    .particle {
+    main h2 {
+      font-size: 2.4em;
+      margin-bottom: 10px;
+      color: #245214;
+      text-shadow: 1px 1px 2px #a5d6a7;
+    }
+
+    main p {
+      font-size: 1.1em;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      color: #2e7d32dd;
+    }
+
+    /* Game preview image placeholder */
+    #game-preview img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 15px;
+      border: 5px solid #388e3c;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+    #game-preview img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      background-color: #388e3c;
+      color: white;
+      text-align: center;
+      padding: 15px;
       position: fixed;
-      background: #00ffe7;
-      border-radius: 50%;
-      opacity: 0.8;
-      pointer-events: none;
-      animation-name: floatUp;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      z-index: 0;
+      width: 100%;
+      bottom: 0;
+      font-weight: 600;
+      box-shadow: 0 -3px 8px rgba(0,0,0,0.3);
     }
 
-    @keyframes floatUp {
+    /* Animate leaves floating */
+
+    .leaf {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      background: url('https://cdn-icons-png.flaticon.com/512/427/427735.png') no-repeat center/contain;
+      opacity: 0.7;
+      animation-name: floatLeaf;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes floatLeaf {
       0% {
-        transform: translateY(100vh);
-        opacity: 0.8;
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0.7;
+      }
+      50% {
+        opacity: 1;
       }
       100% {
-        transform: translateY(-10vh);
+        transform: translateY(-20vh) rotate(360deg);
         opacity: 0;
       }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Welcome to GAG - Grow A Garden</h1>
+    <p>Your virtual garden awaits!</p>
+  </header>
 
-  <div id="codeRain"></div>
+  <main>
+    <section id="discord-invite">
+      <h2>Join Our Discord</h2>
+      <p>Connect with fellow gardeners and share your progress!</p>
+      <a href="https://discord.gg/hubgag" target="_blank" rel="noopener" class="discord-button">Join Now</a>
+    </section>
 
-  <h1>GAG</h1>
-  <p>Join our Discord community and have fun!</p>
-  <a href="https://discord.gg/hubgag" class="join-button" target="_blank" rel="noopener noreferrer">Join Discord</a>
+    <section id="game-preview">
+      <h2>Game Preview</h2>
+      <p>Experience the joy of virtual gardening.</p>
+      <img src="https://i.imgur.com/W6cL7Nr.png" alt="Grow A Garden Gameplay" />
+    </section>
+  </main>
 
+  <footer>
+    <p>&copy; 2025 GAG Community</p>
+  </footer>
+
+  <!-- Animated leaves script -->
   <script>
-    // Code Rain effect like "Matrix"
-    const codeRain = document.getElementById('codeRain');
-    const columns = Math.floor(window.innerWidth / 20);
-    const drops = Array(columns).fill(1);
-
-    function drawCodeRain() {
-      const ctx = codeRain.getContext?.('2d');
-      if (!ctx) {
-        // If canvas not supported, create canvas element
-        if (!codeRain.querySelector('canvas')) {
-          const canvas = document.createElement('canvas');
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          codeRain.appendChild(canvas);
-          codeRain.ctx = canvas.getContext('2d');
-        }
-      }
-      const canvas = codeRain.querySelector('canvas');
-      const ctx2 = canvas.getContext('2d');
-
-      ctx2.fillStyle = 'rgba(15,15,26, 0.1)';
-      ctx2.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx2.fillStyle = '#00ffe7';
-      ctx2.font = '20px monospace';
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = String.fromCharCode(0x30A0 + Math.random() * 96);
-        ctx2.fillText(text, i * 20, drops[i] * 20);
-        if (drops[i] * 20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-      }
+    // Create floating leaf elements with random position and animation delay
+    const leafCount = 10;
+    for(let i = 0; i < leafCount; i++) {
+      const leaf = document.createElement('div');
+      leaf.classList.add('leaf');
+      leaf.style.left = Math.random() * 100 + 'vw';
+      leaf.style.animationDuration = (8 + Math.random() * 7) + 's';
+      leaf.style.animationDelay = (Math.random() * 15) + 's';
+      document.body.appendChild(leaf);
     }
-
-    function startCodeRain() {
-      if (!codeRain.querySelector('canvas')) {
-        const canvas = document.createElement('canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        codeRain.appendChild(canvas);
-        codeRain.ctx = canvas.getContext('2d');
-      }
-      const canvas = codeRain.querySelector('canvas');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      setInterval(drawCodeRain, 50);
-    }
-
-    startCodeRain();
-
-    // Floating particles effect
-    function createParticle() {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      const size = Math.random() * 6 + 4;
-      particle.style.width = `${size}px`;
-      particle.style.height = `${size}px`;
-      particle.style.left = `${Math.random() * window.innerWidth}px`;
-      particle.style.animationDuration = `${5 + Math.random() * 5}s`;
-      particle.style.animationDelay = `${Math.random() * 5}s`;
-      document.body.appendChild(particle);
-
-      setTimeout(() => {
-        particle.remove();
-      }, 10000);
-    }
-
-    setInterval(createParticle, 400);
   </script>
-
 </body>
 </html>
