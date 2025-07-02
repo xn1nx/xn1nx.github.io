@@ -1,184 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>GAG - Grow A Garden Community</title>
-<link rel="icon" type="image/png" href="CandyBlossomPic.png" />
-<style>
-  /* Background gradient like candy blossom theme */
-  body {
-    margin: 0;
-    background: linear-gradient(135deg, #ffb8e4 0%, #ffe4f6 50%, #ffdaee 100%);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
-    color: #5a2a4a;
-  }
-  /* Container for everything */
-  .container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 2rem;
-    text-align: center;
-  }
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-  }
-  p {
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
-    max-width: 400px;
-  }
-  /* Join button styling */
-  .join-btn {
-    background: #ff7fbc;
-    border: none;
-    border-radius: 30px;
-    padding: 1rem 3rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 8px 15px rgba(255, 127, 188, 0.4);
-    transition: background 0.3s ease;
-    z-index: 10;
-  }
-  .join-btn:hover {
-    background: #ff4f9c;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GAG - Grow a Garden Community</title>
 
-  /* Fixed candy blossom tree at bottom center */
-  .candy-tree {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 350px;
-    width: 90vw;
-    pointer-events: none;
-    user-select: none;
-    z-index: 1;
-  }
+  <!-- Favicon -->
+  <link rel="icon" href="CandyBlossomPic.png" type="image/png" />
 
-  /* Floating candy blossom seeds and fruits container */
-  .floating-container {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
-  }
-  /* Common styles for floating images */
-  .floating-seed, .floating-blossom, .floating-fruit {
-    position: absolute;
-    width: 40px;
-    opacity: 0.8;
-    animation: floatFadeUpDown 6s ease-in-out infinite;
-    user-select: none;
-  }
-  /* Slightly bigger for fruits */
-  .floating-fruit {
-    width: 70px;
-    animation-duration: 8s;
-  }
+  <style>
+    /* Candy blossom color gradient background */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fceef3 0%, #f8d7e0 50%, #f4b6c2 100%);
+      color: #6d3a4e;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
 
-  /* Override opacity/filter for candy blossom fruit */
-  img[src*="CandyBlossomPic.png"] {
-    opacity: 1 !important;
-    filter: none !important;
-  }
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
 
-  /* Float animation: smooth up-down fade */
-  @keyframes floatFadeUpDown {
-    0%, 100% {
-      transform: translateY(0);
-      opacity: 0.8;
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.25rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #8e4a66;
+      text-shadow: 1px 1px 3px #fbd2d9;
     }
-    50% {
-      transform: translateY(-20px);
-      opacity: 0.4;
-    }
-  }
 
-  /* Responsive text sizes */
-  @media (max-width: 600px) {
-    h1 {
-      font-size: 2.2rem;
+    header p {
+      font-size: 1.1rem;
+      margin-top: 0;
+      font-weight: 600;
+      color: #7b425b;
+      text-shadow: 1px 1px 2px #fceef3;
     }
-    p {
-      font-size: 1rem;
-      max-width: 90vw;
+
+    main {
+      max-width: 600px;
+      margin: 1rem auto 4rem;
+      padding: 0 1rem;
+      text-align: center;
+      position: relative;
+      z-index: 10;
     }
-    .join-btn {
-      font-size: 1.2rem;
-      padding: 0.8rem 2.5rem;
+
+    /* Join button */
+    #join-btn {
+      display: inline-block;
+      margin: 2rem auto 3rem;
+      padding: 1rem 3rem;
+      background: #f48fb1;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.4rem;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(244, 143, 177, 0.6);
+      transition: background 0.3s ease;
+      user-select: none;
     }
-  }
-</style>
+    #join-btn:hover,
+    #join-btn:focus {
+      background: #ec407a;
+      outline: none;
+    }
+
+    /* Why You Should Join Us section */
+    #why-join {
+      background: rgba(255 255 255 / 0.6);
+      border-radius: 15px;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 4px 10px rgba(142, 74, 102, 0.3);
+      margin-bottom: 3rem;
+    }
+    #why-join h2 {
+      margin-top: 0;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: #82314b;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 2px #fceef3;
+    }
+    #why-join ul {
+      list-style-type: disc;
+      text-align: left;
+      padding-left: 1.2rem;
+      font-weight: 600;
+      color: #5a2d3e;
+      line-height: 1.5;
+    }
+
+    /* Candy blossom tree fixed at bottom center */
+    #tree {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 250px;
+      width: 100%;
+      pointer-events: none;
+      user-select: none;
+      z-index: 5;
+      opacity: 0.9;
+    }
+
+    /* Floating seeds and blossoms container */
+    .floating-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Common style for seeds and blossoms */
+    .floating {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      opacity: 0.7;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+      user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 0 2px rgba(143, 66, 91, 0.5));
+    }
+
+    /* Animation: gentle vertical fade up and down */
+    @keyframes floatUpDown {
+      0%   { transform: translateY(0); opacity: 0.7; }
+      50%  { transform: translateY(-15px); opacity: 0.3; }
+      100% { transform: translateY(0); opacity: 0.7; }
+    }
+
+    /* Specific seed/blossom animations with delay for natural effect */
+    /* We'll do 10 elements so delay them by increments */
+
+    /* Seeds */
+    #seed1 { top: 20%; left: 10%; animation: floatUpDown 6s ease-in-out infinite; }
+    #seed2 { top: 35%; left: 30%; animation: floatUpDown 5.5s ease-in-out infinite 1s; }
+    #seed3 { top: 50%; left: 50%; animation: floatUpDown 6.2s ease-in-out infinite 2s; }
+    #seed4 { top: 65%; left: 70%; animation: floatUpDown 5.8s ease-in-out infinite 3s; }
+    #seed5 { top: 80%; left: 85%; animation: floatUpDown 6.5s ease-in-out infinite 4s; }
+
+    /* Blossoms */
+    #blossom1 { top: 25%; left: 20%; animation: floatUpDown 7s ease-in-out infinite 0.5s; }
+    #blossom2 { top: 40%; left: 40%; animation: floatUpDown 6.7s ease-in-out infinite 1.5s; }
+    #blossom3 { top: 55%; left: 60%; animation: floatUpDown 7.3s ease-in-out infinite 2.5s; }
+    #blossom4 { top: 70%; left: 80%; animation: floatUpDown 6.9s ease-in-out infinite 3.5s; }
+    #blossom5 { top: 85%; left: 90%; animation: floatUpDown 7.1s ease-in-out infinite 4.5s; }
+
+    /* Responsive scaling for mobile */
+    @media (max-width: 480px) {
+      #join-btn {
+        width: 90%;
+        font-size: 1.3rem;
+        padding: 1rem 1rem;
+      }
+      .floating {
+        width: 35px;
+        height: 35px;
+      }
+      #tree {
+        max-width: 150px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <h1>Welcome to GAG</h1>
-    <p>Join our community server for giveaways, invite rewards, and fun on Grow A Garden!</p>
-    <button class="join-btn" onclick="playClickSound(); window.open('https://discord.gg/hubgag', '_blank')">Join Our Discord</button>
-  </div>
+  <header>
+    <h1>GAG - Grow a Garden Community</h1>
+    <p>Join us for giveaways, rewards, and fun!</p>
+  </header>
 
-  <!-- Floating seeds, blossoms, and fruit -->
+  <main>
+    <button id="join-btn" aria-label="Join our Discord Server">Join Our Discord</button>
+
+    <section id="why-join" aria-labelledby="why-join-heading">
+      <h2 id="why-join-heading">Why You Should Join Us</h2>
+      <ul>
+        <li>Exclusive giveaways tailored to Grow a Garden players</li>
+        <li>Invite rewards that boost your progress</li>
+        <li>Friendly and active community</li>
+        <li>Daily events and challenges</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Candy blossom tree fixed at bottom center -->
+  <img src="CandyBlossomTreePic.png" alt="Candy Blossom Tree" id="tree" />
+
+  <!-- Floating seeds and blossoms -->
   <div class="floating-container" aria-hidden="true">
-    <!-- Candy Blossom Seeds -->
-    <img class="floating-seed" src="CandyBlossomSeed.png" style="top: 10%; left: 15%; animation-delay: 0s;" alt="" />
-    <img class="floating-seed" src="CandyBlossomSeed.png" style="top: 40%; left: 70%; animation-delay: 1.8s;" alt="" />
-    <img class="floating-seed" src="CandyBlossomSeed.png" style="top: 75%; left: 30%; animation-delay: 3.5s;" alt="" />
-    <img class="floating-seed" src="CandyBlossomSeed.png" style="top: 25%; left: 50%; animation-delay: 2.2s;" alt="" />
-    <img class="floating-seed" src="CandyBlossomSeed.png" style="top: 60%; left: 80%; animation-delay: 4.7s;" alt="" />
-
-    <!-- Candy Blossoms -->
-    <img class="floating-blossom" src="CandyBlossomPic.png" style="top: 20%; left: 40%; animation-delay: 1s; width: 60px;" alt="" />
-    <img class="floating-blossom" src="CandyBlossomPic.png" style="top: 50%; left: 20%; animation-delay: 3s; width: 60px;" alt="" />
-    <img class="floating-blossom" src="CandyBlossomPic.png" style="top: 70%; left: 65%; animation-delay: 5s; width: 60px;" alt="" />
-
-    <!-- Candy Blossom Fruits -->
-    <img class="floating-fruit" src="CandyBlossomPic.png" style="top: 35%; left: 80%; animation-delay: 0.7s;" alt="" />
-    <img class="floating-fruit" src="CandyBlossomPic.png" style="top: 65%; left: 10%; animation-delay: 4s;" alt="" />
+    <!-- Seeds -->
+    <img src="CandyBlossomSeed.png" class="floating" id="seed1" alt="" />
+    <img src="CandyBlossomSeed.png" class="floating" id="seed2" alt="" />
+    <img src="CandyBlossomSeed.png" class="floating" id="seed3" alt="" />
+    <img src="CandyBlossomSeed.png" class="floating" id="seed4" alt="" />
+    <img src="CandyBlossomSeed.png" class="floating" id="seed5" alt="" />
+    <!-- Blossoms -->
+    <img src="CandyBlossomPic.png" class="floating" id="blossom1" alt="" />
+    <img src="CandyBlossomPic.png" class="floating" id="blossom2" alt="" />
+    <img src="CandyBlossomPic.png" class="floating" id="blossom3" alt="" />
+    <img src="CandyBlossomPic.png" class="floating" id="blossom4" alt="" />
+    <img src="CandyBlossomPic.png" class="floating" id="blossom5" alt="" />
   </div>
 
-  <!-- Candy Blossom Tree fixed at bottom center -->
-  <img class="candy-tree" src="CandyBlossomTreePic.png" alt="Candy Blossom Tree" />
-
-  <!-- Audio elements -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="grow a garden.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
-  <audio id="clickSound" preload="auto">
-    <source src="click.mp3" type="audio/mpeg" />
-  </audio>
+  <!-- Audio elements for background music and click sound -->
+  <audio id="bg-music" src="grow a garden.mp3" loop></audio>
+  <audio id="click-sound" src="click.mp3" preload="auto"></audio>
 
   <script>
-    const bgMusic = document.getElementById('bgMusic');
-    const clickSound = document.getElementById('clickSound');
+    const joinBtn = document.getElementById('join-btn');
+    const bgMusic = document.getElementById('bg-music');
+    const clickSound = document.getElementById('click-sound');
+    const discordInvite = "https://discord.gg/hubgag";
 
-    // Play bg music on first user interaction
-    function startMusic() {
-      bgMusic.play().catch(() => {
-        // Autoplay might be blocked until user interacts
-      });
-      document.removeEventListener('click', startMusic);
+    // Play music once user interacts anywhere on page (required for autoplay policies)
+    function tryPlayMusic() {
+      bgMusic.play().catch(() => {});
+      window.removeEventListener('click', tryPlayMusic);
+      window.removeEventListener('keydown', tryPlayMusic);
+      window.removeEventListener('touchstart', tryPlayMusic);
     }
-    document.addEventListener('click', startMusic);
+    window.addEventListener('click', tryPlayMusic);
+    window.addEventListener('keydown', tryPlayMusic);
+    window.addEventListener('touchstart', tryPlayMusic);
 
-    // Play click sound when clicking Join button
-    function playClickSound() {
+    // Join button click
+    joinBtn.addEventListener('click', () => {
       clickSound.currentTime = 0;
       clickSound.play();
-    }
+      window.open(discordInvite, "_blank");
+    });
   </script>
 </body>
 </html>
