@@ -15,12 +15,13 @@
   body, html {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f7d5f0, #fbd9e9, #ffd1f7);
+    /* Restored original candy blossom gradient theme */
+    background: linear-gradient(135deg, #ffbbe4 0%, #f9d5fb 25%, #d59cde 50%, #c77ada 75%, #8f2f7a 100%);
     overflow-x: hidden;
     cursor: none; /* Hide default cursor */
   }
-  
-  /* --- Background radial glows for depth --- */
+
+  /* Background glowing spots */
   body::before, body::after {
     content: "";
     position: fixed;
@@ -32,12 +33,12 @@
   }
   body::before {
     width: 350px; height: 350px;
-    background: #f8b4da;
+    background: #d083c6;
     top: 15vh; left: 20vw;
   }
   body::after {
     width: 300px; height: 300px;
-    background: #fbe2f8;
+    background: #d89cf6;
     bottom: 20vh; right: 15vw;
   }
 
@@ -45,7 +46,7 @@
   #splash {
     position: fixed;
     inset: 0;
-    background: linear-gradient(135deg, #f7d5f0, #fbd9e9, #ffd1f7);
+    background: linear-gradient(135deg, #ffbbe4, #f9d5fb);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -100,9 +101,9 @@
     50% { transform: translateY(-18px); opacity: 0.35; }
   }
 
-  /* Positions for candy blossoms (10), spaced nicely */
-  .candy-blossom:nth-child(1)  { top: 10vh; left: 8vw; animation-delay: 0s; }
-  .candy-blossom:nth-child(2)  { top: 20vh; left: 28vw; animation-delay: 0.7s; }
+  /* Fixed positions for candy blossoms (10), fixed overlap at top-left */
+  .candy-blossom:nth-child(1)  { top: 10vh; left: 6vw; animation-delay: 0s; }
+  .candy-blossom:nth-child(2)  { top: 19vh; left: 18vw; animation-delay: 0.7s; }
   .candy-blossom:nth-child(3)  { top: 35vh; left: 15vw; animation-delay: 1.3s; }
   .candy-blossom:nth-child(4)  { top: 50vh; left: 40vw; animation-delay: 2s; }
   .candy-blossom:nth-child(5)  { top: 65vh; left: 25vw; animation-delay: 2.7s; }
@@ -112,7 +113,7 @@
   .candy-blossom:nth-child(9)  { top: 20vh; left: 70vw; animation-delay: 5.3s; }
   .candy-blossom:nth-child(10) { top: 10vh; left: 85vw; animation-delay: 6s; }
 
-  /* Positions for seeds (10), spaced nicely and away from blossoms */
+  /* Fixed positions for seeds (10), spaced nicely and away from blossoms */
   .seed:nth-child(11) { top: 18vh; left: 18vw; animation-delay: 1s; }
   .seed:nth-child(12) { top: 32vh; left: 38vw; animation-delay: 1.7s; }
   .seed:nth-child(13) { top: 47vh; left: 23vw; animation-delay: 2.4s; }
@@ -127,13 +128,13 @@
   /* --- Candy Blossom Tree with glow --- */
   .tree {
     position: fixed;
-    bottom: 15px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     width: 320px;
     filter:
-      drop-shadow(0 0 20px #f9c0ff)
-      drop-shadow(0 0 30px #f29ef4);
+      drop-shadow(0 0 18px #d67adb)
+      drop-shadow(0 0 28px #f07ce6);
     animation: sway 5s ease-in-out infinite;
     z-index: 20;
     user-select: none;
@@ -176,32 +177,30 @@
     cursor: pointer;
     font-weight: 700;
     box-shadow:
-      0 8px 18px rgba(231, 141, 221, 0.6),
-      0 0 20px #e78ddd;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-    user-select: none;
+      0 6px 10px rgba(215, 124, 196, 0.5),
+      0 10px 30px rgba(215, 124, 196, 0.4);
+    transition: background 0.3s ease;
   }
-  .join-button button:hover, .join-button button:focus {
-    background: #ce93d8;
-    box-shadow:
-      0 12px 24px rgba(206, 147, 216, 0.8),
-      0 0 28px #ce93d8;
+  .join-button button:hover,
+  .join-button button:focus {
+    background: #cd65be;
     outline: none;
   }
 
-  /* --- Why Join section with shadow --- */
+  /* --- Why Join Section with shadow --- */
   .why-join {
-    background: rgba(255 255 255 / 0.85);
-    border-radius: 20px;
-    padding: 28px 36px;
+    max-width: 650px;
+    margin: 40px auto 40px;
+    padding: 20px 30px;
+    background: rgba(255 182 228 / 0.25);
+    border-radius: 12px;
     box-shadow:
-      0 12px 26px rgba(204, 153, 204, 0.35),
-      0 0 40px rgba(215, 156, 215, 0.3);
-    max-width: 600px;
-    margin: 40px auto 20px;
+      0 0 14px rgba(244, 153, 204, 0.4),
+      0 0 40px rgba(215, 156, 215, 0.25);
     font-weight: 600;
     color: #7a3f7a;
     text-align: left;
+    user-select: none;
   }
   .why-join h2 {
     margin-bottom: 12px;
@@ -217,34 +216,41 @@
     margin-bottom: 10px;
   }
 
-  /* --- Footer copyright --- */
+  /* --- Footer copyright at bottom with glow --- */
   footer {
     color: #8b488b;
     text-align: center;
-    margin: 50px 10px 20px;
+    padding: 12px 10px;
     font-size: 0.9rem;
     user-select: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(255 182 228 / 0.15);
+    text-shadow:
+      0 0 4px #d878bb,
+      0 0 6px #d878bb;
+    box-shadow: inset 0 0 6px #f0a7e1;
   }
 
-  /* --- Custom cursor follower --- */
+  /* --- Cursor Seed --- */
   #cursor-follower {
     position: fixed;
     top: 0;
     left: 0;
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     pointer-events: none;
+    background: url('CandyBlossomSeed.png') no-repeat center/contain;
+    filter:
+      drop-shadow(0 0 6px #d88bc4)
+      drop-shadow(0 0 18px #f793d4);
     border-radius: 50%;
-    background: radial-gradient(circle at center, #fcb8ea 40%, #8e277a 90%);
-    box-shadow:
-      0 0 12px #fdb1e4,
-      0 0 24px #f76ce0;
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease-out;
     mix-blend-mode: screen;
     z-index: 1500;
   }
-
 </style>
 </head>
 <body>
@@ -255,7 +261,7 @@
   <span>Click to Enter</span>
 </div>
 
-<!-- Floating candy blossoms -->
+<!-- Floating candy blossoms (10) -->
 <img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
 <img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
 <img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
@@ -267,7 +273,7 @@
 <img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
 <img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
 
-<!-- Floating seeds -->
+<!-- Floating seeds (10) -->
 <img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
 <img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
 <img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
@@ -291,6 +297,7 @@
   </div>
 </div>
 
+<!-- Why You Should Join Section -->
 <div class="why-join" aria-label="Why You Should Join Our Server">
   <h2>Why You Should Join Our Server</h2>
   <ul>
@@ -301,6 +308,7 @@
   </ul>
 </div>
 
+<!-- Footer -->
 <footer>
   &copy; 2025 xn1nx created this
 </footer>
@@ -340,7 +348,6 @@
   window.addEventListener('mousemove', e => {
     cursorFollower.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
   });
-
 </script>
 
 </body>
