@@ -273,7 +273,7 @@
 <img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
 <img src="CandyBlossomPic.png" alt="" class="floating-img candy-blossom" />
 
-<!-- Floating candy seeds (10) -->
+<!-- Floating seeds (10) -->
 <img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
 <img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
 <img src="CandyBlossomSeed.png" alt="" class="floating-img seed" />
@@ -288,47 +288,46 @@
 <!-- Candy Blossom Tree -->
 <img src="CandyBlossomTree.png" alt="Candy Blossom Tree" class="tree" />
 
-<!-- Main Content -->
-<div class="main-content" role="main">
-  <h1>Grow a Garden Discord Community</h1>
-  <p>The official Discord server of Grow a Garden, the game.</p>
+<!-- Main content -->
+<main class="main-content" role="main" aria-label="Main content">
+  <h1>Grow a Garden</h1>
+  <p>Welcome to our vibrant Discord community! Connect, create, and blossom with us.</p>
   <div class="join-button">
-    <a href="https://discord.gg/yourinvite" target="_blank" rel="noopener">
-      <button>Join the Server</button>
-    </a>
+    <button onclick="window.open('https://discord.gg/GAGInviteLink', '_blank')" aria-label="Join the Grow a Garden Discord server">Join Now</button>
   </div>
-</div>
+  <section class="why-join" aria-label="Reasons to join our community">
+    <h2>Why You Should Join Us</h2>
+    <ul>
+      <li>Active and friendly members.</li>
+      <li>Daily events and giveaways.</li>
+      <li>Supportive community for all skill levels.</li>
+      <li>Exclusive content and sneak peeks.</li>
+    </ul>
+  </section>
+</main>
 
-<!-- Why Join Us Section -->
-<section class="why-join" aria-labelledby="whyjoin-title">
-  <h2 id="whyjoin-title">Why You Should Join Us</h2>
-  <ul>
-    <li>Connect with fellow Grow a Garden fans and players.</li>
-    <li>Get early game updates and sneak peeks.</li>
-    <li>Participate in events and contests.</li>
-    <li>Help shape the game's future with your feedback.</li>
-  </ul>
-</section>
-
-<footer>
-  &copy; 2025 Grow a Garden Discord Community
+<!-- Footer -->
+<footer aria-label="Footer">
+  &copy; 2025 Grow a Garden Community. All rights reserved.
 </footer>
 
 <!-- Cursor follower -->
 <div id="cursor-follower" aria-hidden="true"></div>
 
 <script>
-  // Splash screen click to dismiss
+  // Splash screen dismissal
   const splash = document.getElementById('splash');
-  splash.addEventListener('click', () => {
-    splash.style.display = 'none';
+  splash.addEventListener('click', () => splash.style.display = 'none');
+  splash.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      splash.style.display = 'none';
+    }
   });
 
-  // Cursor follower logic
-  const cursor = document.getElementById('cursor-follower');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+  // Cursor follower movement
+  const cursorFollower = document.getElementById('cursor-follower');
+  window.addEventListener('mousemove', e => {
+    cursorFollower.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
   });
 </script>
 
