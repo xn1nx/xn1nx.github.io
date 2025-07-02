@@ -1,229 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>GAG Candy Blossom Garden</title>
-<style>
-  /* Base & layout */
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #fcefee, #ffd9e8, #ffcdf7);
-    color: #6b2e57;
-    overflow-x: hidden;
-  }
-
-  header {
-    background: #fae3f4;
-    padding: 50px 20px 60px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(235, 182, 215, 0.6);
-    position: relative;
-    z-index: 10;
-  }
-
-  header h1 {
-    margin: 0 0 10px;
-    font-size: 3.8em;
-    font-weight: 900;
-    color: #b33e75;
-    text-shadow: 1px 2px 6px #ffb7d9;
-  }
-
-  header p {
-    font-size: 1.5em;
-    font-weight: 600;
-    color: #9e3770cc;
-    text-shadow: 0 1px 3px #f0b5d8;
-  }
-
-  main {
-    max-width: 960px;
-    margin: 0 auto 100px;
-    padding: 0 20px;
-    position: relative;
-    z-index: 20; /* make sure content is above floating seeds/blossoms */
-    text-align: center;
-  }
-
-  main h2 {
-    font-size: 2.8em;
-    color: #ae3e81;
-    margin-bottom: 15px;
-    font-weight: 800;
-    text-shadow: 1px 1px 3px #f7c2e0;
-  }
-
-  main p {
-    font-size: 1.2em;
-    max-width: 600px;
-    margin: 0 auto 30px;
-    color: #924371cc;
-  }
-
-  .discord-button {
-    background: linear-gradient(45deg, #f47aaa, #e34794);
-    color: white;
-    font-weight: 700;
-    font-size: 1.5em;
-    padding: 18px 48px;
-    border-radius: 40px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 8px 20px #f48fb1cc;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.4s ease;
-  }
-
-  .discord-button:hover {
-    background: linear-gradient(45deg, #e34794, #f47aaa);
-    box-shadow: 0 12px 30px #f48fb1ff;
-    transform: scale(1.1);
-  }
-
-  footer {
-    text-align: center;
-    padding: 20px 10px;
-    font-weight: 700;
-    font-size: 1em;
-    color: #9c4376cc;
-    text-shadow: 0 0 3px #fcd9ec;
-    user-select: none;
-    position: relative;
-    z-index: 20;
-  }
-
-  /* Fixed tree at bottom center */
-  #tree-container {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 600px;
-    width: 100%;
-    pointer-events: none;
-    user-select: none;
-    z-index: 5;
-  }
-
-  #tree-container img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* Floating seeds & blossoms container */
-  #floating-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none; /* So clicks pass through */
-    overflow: visible;
-    z-index: 10;
-  }
-
-  /* Seed & blossom common styles */
-  .floating-item {
-    position: absolute;
-    background-size: contain;
-    background-repeat: no-repeat;
-    will-change: transform, opacity;
-    opacity: 0.8;
-    user-select: none;
-  }
-
-  /* Animation for gentle up/down bob and fade */
-  @keyframes bobFade {
-    0%, 100% {
-      transform: translateY(0);
-      opacity: 0.7;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GAG Community – Grow A Garden</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fbe7f0, #ffeef5);
+      overflow-x: hidden;
+      position: relative;
+      color: #4b2e3e;
     }
-    50% {
-      transform: translateY(-12px);
-      opacity: 1;
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px 50px;
+      position: relative;
+      z-index: 2;
     }
-  }
-</style>
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #d14b84;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .hero a.button {
+      background: #ffb0d6;
+      padding: 15px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
+
+    .hero a.button:hover {
+      background: #ff91c3;
+    }
+
+    #floating-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-item {
+      position: absolute;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.6;
+      animation: bobFade 10s ease-in-out infinite;
+    }
+
+    @keyframes bobFade {
+      0% { transform: translateY(0); opacity: 0.6; }
+      50% { transform: translateY(-20px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 0.6; }
+    }
+
+    .tree {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      max-width: 80vw;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .tree {
+        width: 200px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div id="floating-container"></div>
 
-<header>
-  <h1>Candy Blossom - Grow A Garden</h1>
-  <p>Join GAG, the community for giveaways and invite rewards!</p>
-</header>
+  <div class="hero">
+    <h1>Welcome to GAG 🌸</h1>
+    <p>A Grow A Garden community offering giveaways, invite rewards, and more.</p>
+    <a class="button" href="https://discord.gg/hubgag" target="_blank">Join Our Discord</a>
+  </div>
 
-<main>
-  <section id="discord-invite">
-    <h2>Join Our Discord</h2>
-    <p>Connect with fellow gardeners and share your progress in a friendly community!</p>
-    <a href="https://discord.gg/hubgag" target="_blank" rel="noopener" class="discord-button">Join Now</a>
-  </section>
-</main>
+  <img class="tree" src="https://static.wikia.nocookie.net/growagarden/images/d/de/CandyBlossomTreePic.png/revision/latest/scale-to-width-down/1000?cb=20250429051423" alt="Candy Blossom Tree">
 
-<div id="floating-container"></div>
+  <script>
+    const seedUrl = 'https://images.weserv.nl/?url=static.wikia.nocookie.net/growagarden/images/9/93/CandyBlossomSeed.png/revision/latest?cb=20250615132847';
+    const fruitUrl = 'https://images.weserv.nl/?url=static.wikia.nocookie.net/growagarden/images/5/52/CandyBlossomPic.png/revision/latest?cb=20250615132955';
 
-<div id="tree-container">
-  <img src="https://images.weserv.nl/?url=static.wikia.nocookie.net/growagarden/images/d/de/CandyBlossomTreePic.png/revision/latest/scale-to-width-down/1000?cb=20250429051423" alt="Candy Blossom Tree" />
-</div>
+    const container = document.getElementById('floating-container');
 
-<footer>
-  <p>&copy; 2025 GAG Community</p>
-</footer>
+    function randomBetween(min, max) {
+      return Math.random() * (max - min) + min;
+    }
 
-<script>
-  // Candy Blossom Seed and Blossom URLs
-  const seedUrl = 'https://images.weserv.nl/?url=static.wikia.nocookie.net/growagarden/images/9/93/CandyBlossomSeed.png/revision/latest?cb=20250615132847';
-  // Using the same seed image for blossoms as per your instructions
+    function createFloatingItem(imageUrl, sizePx, duration, delay) {
+      const div = document.createElement('div');
+      div.classList.add('floating-item');
+      div.style.backgroundImage = `url(${imageUrl})`;
+      div.style.width = sizePx + 'px';
+      div.style.height = sizePx + 'px';
+      div.style.left = randomBetween(5, 95) + 'vw';
+      div.style.top = randomBetween(10, 90) + 'vh';
+      div.style.animationDuration = duration + 's';
+      div.style.animationDelay = delay + 's';
+      container.appendChild(div);
+    }
 
-  const container = document.getElementById('floating-container');
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
+    // Seeds
+    for (let i = 0; i < 12; i++) {
+      createFloatingItem(seedUrl, 40, randomBetween(6, 10), randomBetween(0, 6));
+    }
 
-  // Helper: generate a random number between min and max
-  function randomBetween(min, max) {
-    return Math.random() * (max - min) + min;
-  }
+    // Candy Blossoms (same as seeds, just varied size)
+    for (let i = 0; i < 10; i++) {
+      createFloatingItem(seedUrl, 60, randomBetween(8, 12), randomBetween(0, 6));
+    }
 
-  // Create one floating item (seed or blossom)
-  function createFloatingItem(imageUrl, sizePx, animationDuration, animationDelay) {
-    const div = document.createElement('div');
-    div.classList.add('floating-item');
-    div.style.backgroundImage = `url(${imageUrl})`;
-    div.style.width = sizePx + 'px';
-    div.style.height = sizePx + 'px';
-
-    // Random horizontal position (vw)
-    const left = randomBetween(5, 95);
-    div.style.left = left + 'vw';
-
-    // Random vertical position (vh), leave top/bottom margin
-    const top = randomBetween(15, 80);
-    div.style.top = top + 'vh';
-
-    // Animation properties
-    div.style.animation = `bobFade ${animationDuration}s ease-in-out infinite`;
-    div.style.animationDelay = animationDelay + 's';
-
-    container.appendChild(div);
-  }
-
-  // Create seeds - smaller size, faster bob
-  for (let i = 0; i < 10; i++) {
-    createFloatingItem(seedUrl, 40, randomBetween(5, 8), randomBetween(0, 5));
-  }
-
-  // Create blossoms - bigger size, slower bob, slightly behind seeds by z-index
-  for (let i = 0; i < 8; i++) {
-    createFloatingItem(seedUrl, 60, randomBetween(7, 12), randomBetween(0, 5));
-  }
-</script>
-
-<!-- Candy Blossom external script -->
-<script src="https://cdn.brandmetrics.com/scripts/bundle/65568.js?sid=ed1edc0e-ce73-462e-8cc4-fe0421bcd00f&toploc=growagarden.fandom.com" async></script>
-
+    // Candy Blossom Fruits
+    for (let i = 0; i < 6; i++) {
+      createFloatingItem(fruitUrl, 70, randomBetween(9, 14), randomBetween(0, 6));
+    }
+  </script>
 </body>
 </html>
